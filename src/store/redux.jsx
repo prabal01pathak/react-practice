@@ -1,10 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 // import { configureStore } from "@reduxjs/toolkit";
-// import login from "../thunks/Thunks";
+import login from "../thunks/Thunks";
 
 const initialState = {
   username: "",
   password: "",
+  isLoggedIn: false,
+  isFetching: false,
+  error: null,
 };
 
 const LoginFormSlice = createSlice({
@@ -18,6 +21,27 @@ const LoginFormSlice = createSlice({
       state.password = action.payload;
     },
     resetLoginForm: () => initialState,
+  },
+  extraReducers: (builder) => {
+    builder.addCase(login.pending, (state) => {
+      console.log("pending");
+      state.isFetching = true;
+    });
+    builder.addCase(login.fulfilled, (state, action) => {
+      console.log("fulfilled");
+      state.isLoggedIn = true;
+      state.error = null;
+      state.isFetching = false;
+      // clear the state
+      state.username = "";
+      state.password = "";
+    });
+    builder.addCase(login.rejected, (state, action) => {
+      state.isLoggedIn = false;
+      state.isFetching = false;
+      state.error = action.error.message;
+      console.log("rejected", state.isLoggedIn, state.isFetching, state.error);
+    });
   },
 });
 
