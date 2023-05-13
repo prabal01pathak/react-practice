@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setUsername, setPassword } from "../store/redux";
-import login from "../thunks/Thunks";
+import { login } from "../thunks/Thunks";
 
 export default function LoginForm() {
   const dispatch = useDispatch();
