@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setUsername, setPassword } from "../store/redux";
 import { login } from "../thunks/Thunks";
 
-export default function LoginForm() {
+export default function SignInForm() {
   const dispatch = useDispatch();
   const { username, password, isLoggedIn, isFetching, error } = useSelector(
     (state) => {
